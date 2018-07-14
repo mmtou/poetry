@@ -1,0 +1,64 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: poetry
+
+  datasource:
+    url: jdbc:mysql://mmtou.io/poetry
+    username: 
+    password: 
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+#      minimum-idle: 5
+#      maximum-pool-size: 10
+#      auto-commit: true
+#      idle-timeout: 30000
+#      pool-name: DatebookHikariCP
+#      max-lifetime: 1800000
+#      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+  redis:
+    host: mmtou.io
+    password: root
+    port: 6379
+    timeout: 3000
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: -1
+      max-wait: 1000
+
+logging:
+  level:
+    root: DEBUG
+
+mybatis:
+  typeAliasesPackage: com.mmtou.poetry.entity
+  mapperLocations: classpath:mapper/*.xml
+
+app:
+  # 微信授权登录
+  wechat:
+    appid: wxeb092e0eb0c89dda
+    secret: 8d36e96d5b89b484421b20010603addb
+    jscode2session: https://api.weixin.qq.com/sns/jscode2session
+  # 上传下载基础路径
+  base-dir: 'ai/'
+  base-download-url: 'http://localhost/download/'
+  # 百度语音合成配置
+  baidu:
+    app-key: G3HTNx3yyuTrGwTkDIFCsrXX
+    secret-key: 6edcb5fdc9a47d76ec7cf4ca2cb3d319
+    # 发音人选择, 0为普通女声，1为普通男生，3为情感合成-度逍遥，4为情感合成-度丫丫，默认为普通女声
+    per: 1
+    # 语速，取值0-9，默认为5中语速
+    spd: 2
+    # 音调，取值0-9，默认为5中语调
+    pit: 5
+    # 音量，取值0-9，默认为5中音量
+    vol: 5
+    url: http://tsn.baidu.com/text2audio
+    cuid: 1234567JAVA
