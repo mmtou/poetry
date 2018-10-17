@@ -112,17 +112,22 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.mmtou.poetry.entity.Comment" useGeneratedKeys="true">
-    insert into comment (user_id, user_name, subject_id, 
-      subject_type, parent_id, content, 
-      create_time, delete_flag)
-    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{subjectId,jdbcType=BIGINT}, 
-      #{subjectType,jdbcType=TINYINT}, #{parentId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=TINYINT})
+  <insert id="insert" parameterType="com.mmtou.poetry.entity.Comment">
+    insert into comment (id, user_id, user_name, 
+      subject_id, subject_type, parent_id, 
+      content, create_time, delete_flag
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, 
+      #{subjectId,jdbcType=BIGINT}, #{subjectType,jdbcType=TINYINT}, #{parentId,jdbcType=BIGINT}, 
+      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=TINYINT}
+      )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.mmtou.poetry.entity.Comment" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.mmtou.poetry.entity.Comment">
     insert into comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="userId != null">
         user_id,
       </if>
@@ -149,6 +154,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=BIGINT},
       </if>

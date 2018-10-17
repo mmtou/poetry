@@ -10,29 +10,59 @@ import java.util.Date;
 public class Poetry implements Serializable {
     private Long id;
 
+    /**
+     * 标题
+     */
     private String title;
 
-    private String dynastyName;
-
-    private String authorName;
-
-    private Long readCount;
-
-    private Long likeCount;
-
-    private Long commentCount;
+    /**
+     * 作者id
+     */
+    private Long authorId;
 
     /**
-     * 热度
+     * 作者姓名
      */
-    private Long hotTop;
+    private String authorName;
+
+    /**
+     * 朝代
+     */
+    private String dynasty;
+
+    /**
+     * 阅读数
+     */
+    private Integer readCount;
+
+    /**
+     * 喜欢数
+     */
+    private Integer likeCount;
+
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
+
+    /**
+     * 热度分值
+     */
+    private Integer score;
 
     private Date createTime;
 
     private Long createBy;
 
+    private Date updateTime;
+
+    private Long updateBy;
+
     private Byte deleteFlag;
 
+    /**
+     * 内容
+     */
     private String content;
 
     private static final long serialVersionUID = 1L;
@@ -53,12 +83,12 @@ public class Poetry implements Serializable {
         this.title = title;
     }
 
-    public String getDynastyName() {
-        return dynastyName;
+    public Long getAuthorId() {
+        return authorId;
     }
 
-    public void setDynastyName(String dynastyName) {
-        this.dynastyName = dynastyName;
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 
     public String getAuthorName() {
@@ -69,36 +99,44 @@ public class Poetry implements Serializable {
         this.authorName = authorName;
     }
 
-    public Long getReadCount() {
+    public String getDynasty() {
+        return dynasty;
+    }
+
+    public void setDynasty(String dynasty) {
+        this.dynasty = dynasty;
+    }
+
+    public Integer getReadCount() {
         return readCount;
     }
 
-    public void setReadCount(Long readCount) {
+    public void setReadCount(Integer readCount) {
         this.readCount = readCount;
     }
 
-    public Long getLikeCount() {
+    public Integer getLikeCount() {
         return likeCount;
     }
 
-    public void setLikeCount(Long likeCount) {
+    public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
     }
 
-    public Long getCommentCount() {
+    public Integer getCommentCount() {
         return commentCount;
     }
 
-    public void setCommentCount(Long commentCount) {
+    public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
     }
 
-    public Long getHotTop() {
-        return hotTop;
+    public Integer getScore() {
+        return score;
     }
 
-    public void setHotTop(Long hotTop) {
-        this.hotTop = hotTop;
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Date getCreateTime() {
@@ -115,6 +153,22 @@ public class Poetry implements Serializable {
 
     public void setCreateBy(Long createBy) {
         this.createBy = createBy;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(Long updateBy) {
+        this.updateBy = updateBy;
     }
 
     public Byte getDeleteFlag() {
@@ -147,14 +201,17 @@ public class Poetry implements Serializable {
         Poetry other = (Poetry) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
-            && (this.getDynastyName() == null ? other.getDynastyName() == null : this.getDynastyName().equals(other.getDynastyName()))
+            && (this.getAuthorId() == null ? other.getAuthorId() == null : this.getAuthorId().equals(other.getAuthorId()))
             && (this.getAuthorName() == null ? other.getAuthorName() == null : this.getAuthorName().equals(other.getAuthorName()))
+            && (this.getDynasty() == null ? other.getDynasty() == null : this.getDynasty().equals(other.getDynasty()))
             && (this.getReadCount() == null ? other.getReadCount() == null : this.getReadCount().equals(other.getReadCount()))
             && (this.getLikeCount() == null ? other.getLikeCount() == null : this.getLikeCount().equals(other.getLikeCount()))
             && (this.getCommentCount() == null ? other.getCommentCount() == null : this.getCommentCount().equals(other.getCommentCount()))
-            && (this.getHotTop() == null ? other.getHotTop() == null : this.getHotTop().equals(other.getHotTop()))
+            && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
             && (this.getDeleteFlag() == null ? other.getDeleteFlag() == null : this.getDeleteFlag().equals(other.getDeleteFlag()))
             && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()));
     }
@@ -165,14 +222,17 @@ public class Poetry implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
-        result = prime * result + ((getDynastyName() == null) ? 0 : getDynastyName().hashCode());
+        result = prime * result + ((getAuthorId() == null) ? 0 : getAuthorId().hashCode());
         result = prime * result + ((getAuthorName() == null) ? 0 : getAuthorName().hashCode());
+        result = prime * result + ((getDynasty() == null) ? 0 : getDynasty().hashCode());
         result = prime * result + ((getReadCount() == null) ? 0 : getReadCount().hashCode());
         result = prime * result + ((getLikeCount() == null) ? 0 : getLikeCount().hashCode());
         result = prime * result + ((getCommentCount() == null) ? 0 : getCommentCount().hashCode());
-        result = prime * result + ((getHotTop() == null) ? 0 : getHotTop().hashCode());
+        result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getUpdateBy() == null) ? 0 : getUpdateBy().hashCode());
         result = prime * result + ((getDeleteFlag() == null) ? 0 : getDeleteFlag().hashCode());
         result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
         return result;
@@ -186,14 +246,17 @@ public class Poetry implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", title=").append(title);
-        sb.append(", dynastyName=").append(dynastyName);
+        sb.append(", authorId=").append(authorId);
         sb.append(", authorName=").append(authorName);
+        sb.append(", dynasty=").append(dynasty);
         sb.append(", readCount=").append(readCount);
         sb.append(", likeCount=").append(likeCount);
         sb.append(", commentCount=").append(commentCount);
-        sb.append(", hotTop=").append(hotTop);
+        sb.append(", score=").append(score);
         sb.append(", createTime=").append(createTime);
         sb.append(", createBy=").append(createBy);
+        sb.append(", updateTime=").append(updateTime);
+        sb.append(", updateBy=").append(updateBy);
         sb.append(", deleteFlag=").append(deleteFlag);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);

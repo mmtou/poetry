@@ -8,13 +8,15 @@ public class PoetryInfo implements Serializable {
 
   private String title;
 
-  private String dynastyName;
+  private String dynasty;
+
+  private long authorId;
 
   private String authorName;
 
-  private String content;
+  private String avatar;
 
-  private String audioUrl;
+  private String content;
 
   private Long readCount;
 
@@ -38,12 +40,20 @@ public class PoetryInfo implements Serializable {
     this.title = title;
   }
 
-  public String getDynastyName() {
-    return dynastyName;
+  public String getDynasty() {
+    return dynasty;
   }
 
-  public void setDynastyName(String dynastyName) {
-    this.dynastyName = dynastyName;
+  public void setDynasty(String dynasty) {
+    this.dynasty = dynasty;
+  }
+
+  public long getAuthorId() {
+    return authorId;
+  }
+
+  public void setAuthorId(long authorId) {
+    this.authorId = authorId;
   }
 
   public String getAuthorName() {
@@ -60,14 +70,6 @@ public class PoetryInfo implements Serializable {
 
   public void setContent(String content) {
     this.content = content;
-  }
-
-  public String getAudioUrl() {
-    return audioUrl;
-  }
-
-  public void setAudioUrl(String audioUrl) {
-    this.audioUrl = audioUrl;
   }
 
   public Long getReadCount() {
@@ -92,5 +94,13 @@ public class PoetryInfo implements Serializable {
 
   public void setCommentCount(Long commentCount) {
     this.commentCount = commentCount;
+  }
+
+  public String getAvatar() {
+    return avatar;
+  }
+
+  public void setAvatar(String avatar) {
+    this.avatar = avatar;
   }
 }

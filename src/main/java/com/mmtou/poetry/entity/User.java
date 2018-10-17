@@ -10,22 +10,56 @@ import java.util.Date;
 public class User implements Serializable {
     private Long id;
 
-    private String userName;
+    /**
+     * 作者名
+     */
+    private String name;
 
     /**
-     * 微信openid
+     * 手机号
      */
-    private String openid;
+    private String mobile;
 
-    private Long likeCount;
+    /**
+     * 密码
+     */
+    private String password;
 
-    private Long commentCount;
+    /**
+     * 加盐
+     */
+    private String salt;
 
-    private Long hotTop;
+    /**
+     * 状态: 0正常; 10冻结
+     */
+    private Byte state;
+
+    /**
+     * 头像uri
+     */
+    private String avatar;
+
+    /**
+     * 喜欢数
+     */
+    private Integer likeCount;
+
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
+
+    /**
+     * 热度分值
+     */
+    private Integer score;
 
     private Date createTime;
 
-    private Long createBy;
+    private Date updateTime;
+
+    private Long updateBy;
 
     private Byte deleteFlag;
 
@@ -39,44 +73,76 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getOpenid() {
-        return openid;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setOpenid(String openid) {
-        this.openid = openid;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public Long getLikeCount() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Byte getState() {
+        return state;
+    }
+
+    public void setState(Byte state) {
+        this.state = state;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Integer getLikeCount() {
         return likeCount;
     }
 
-    public void setLikeCount(Long likeCount) {
+    public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
     }
 
-    public Long getCommentCount() {
+    public Integer getCommentCount() {
         return commentCount;
     }
 
-    public void setCommentCount(Long commentCount) {
+    public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
     }
 
-    public Long getHotTop() {
-        return hotTop;
+    public Integer getScore() {
+        return score;
     }
 
-    public void setHotTop(Long hotTop) {
-        this.hotTop = hotTop;
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Date getCreateTime() {
@@ -87,12 +153,20 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
-    public Long getCreateBy() {
-        return createBy;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setCreateBy(Long createBy) {
-        this.createBy = createBy;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(Long updateBy) {
+        this.updateBy = updateBy;
     }
 
     public Byte getDeleteFlag() {
@@ -116,13 +190,18 @@ public class User implements Serializable {
         }
         User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
-            && (this.getOpenid() == null ? other.getOpenid() == null : this.getOpenid().equals(other.getOpenid()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getMobile() == null ? other.getMobile() == null : this.getMobile().equals(other.getMobile()))
+            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
+            && (this.getSalt() == null ? other.getSalt() == null : this.getSalt().equals(other.getSalt()))
+            && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()))
+            && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
             && (this.getLikeCount() == null ? other.getLikeCount() == null : this.getLikeCount().equals(other.getLikeCount()))
             && (this.getCommentCount() == null ? other.getCommentCount() == null : this.getCommentCount().equals(other.getCommentCount()))
-            && (this.getHotTop() == null ? other.getHotTop() == null : this.getHotTop().equals(other.getHotTop()))
+            && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
             && (this.getDeleteFlag() == null ? other.getDeleteFlag() == null : this.getDeleteFlag().equals(other.getDeleteFlag()));
     }
 
@@ -131,13 +210,18 @@ public class User implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
-        result = prime * result + ((getOpenid() == null) ? 0 : getOpenid().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getMobile() == null) ? 0 : getMobile().hashCode());
+        result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
+        result = prime * result + ((getSalt() == null) ? 0 : getSalt().hashCode());
+        result = prime * result + ((getState() == null) ? 0 : getState().hashCode());
+        result = prime * result + ((getAvatar() == null) ? 0 : getAvatar().hashCode());
         result = prime * result + ((getLikeCount() == null) ? 0 : getLikeCount().hashCode());
         result = prime * result + ((getCommentCount() == null) ? 0 : getCommentCount().hashCode());
-        result = prime * result + ((getHotTop() == null) ? 0 : getHotTop().hashCode());
+        result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getUpdateBy() == null) ? 0 : getUpdateBy().hashCode());
         result = prime * result + ((getDeleteFlag() == null) ? 0 : getDeleteFlag().hashCode());
         return result;
     }
@@ -149,13 +233,18 @@ public class User implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", userName=").append(userName);
-        sb.append(", openid=").append(openid);
+        sb.append(", name=").append(name);
+        sb.append(", mobile=").append(mobile);
+        sb.append(", password=").append(password);
+        sb.append(", salt=").append(salt);
+        sb.append(", state=").append(state);
+        sb.append(", avatar=").append(avatar);
         sb.append(", likeCount=").append(likeCount);
         sb.append(", commentCount=").append(commentCount);
-        sb.append(", hotTop=").append(hotTop);
+        sb.append(", score=").append(score);
         sb.append(", createTime=").append(createTime);
-        sb.append(", createBy=").append(createBy);
+        sb.append(", updateTime=").append(updateTime);
+        sb.append(", updateBy=").append(updateBy);
         sb.append(", deleteFlag=").append(deleteFlag);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

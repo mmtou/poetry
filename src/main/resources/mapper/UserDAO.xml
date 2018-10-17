@@ -3,13 +3,18 @@
 <mapper namespace="com.mmtou.poetry.mapper.UserDAO">
   <resultMap id="BaseResultMap" type="com.mmtou.poetry.entity.User">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="openid" jdbcType="VARCHAR" property="openid" />
-    <result column="like_count" jdbcType="BIGINT" property="likeCount" />
-    <result column="comment_count" jdbcType="BIGINT" property="commentCount" />
-    <result column="hot_top" jdbcType="BIGINT" property="hotTop" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="score" jdbcType="INTEGER" property="score" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
     <result column="delete_flag" jdbcType="TINYINT" property="deleteFlag" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -71,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, openid, like_count, comment_count, hot_top, create_time, create_by, 
-    delete_flag
+    id, name, mobile, password, salt, state, avatar, like_count, comment_count, score, 
+    create_time, update_time, update_by, delete_flag
   </sql>
   <select id="selectByExample" parameterType="com.mmtou.poetry.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -113,14 +118,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.mmtou.poetry.entity.User">
-    insert into user (id, user_name, openid, 
-      like_count, comment_count, hot_top, 
-      create_time, create_by, delete_flag
-      )
-    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
-      #{likeCount,jdbcType=BIGINT}, #{commentCount,jdbcType=BIGINT}, #{hotTop,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, #{deleteFlag,jdbcType=TINYINT}
-      )
+    insert into user (id, name, mobile, 
+      password, salt, state, 
+      avatar, like_count, comment_count, 
+      score, create_time, update_time, 
+      update_by, delete_flag)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, 
+      #{avatar,jdbcType=VARCHAR}, #{likeCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=BIGINT}, #{deleteFlag,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.mmtou.poetry.entity.User">
     insert into user
@@ -128,11 +135,23 @@
       <if test="id != null">
         id,
       </if>
-      <if test="userName != null">
-        user_name,
+      <if test="name != null">
+        name,
       </if>
-      <if test="openid != null">
-        openid,
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="avatar != null">
+        avatar,
       </if>
       <if test="likeCount != null">
         like_count,
@@ -140,14 +159,17 @@
       <if test="commentCount != null">
         comment_count,
       </if>
-      <if test="hotTop != null">
-        hot_top,
+      <if test="score != null">
+        score,
       </if>
       <if test="createTime != null">
         create_time,
       </if>
-      <if test="createBy != null">
-        create_by,
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
       </if>
       <if test="deleteFlag != null">
         delete_flag,
@@ -157,26 +179,41 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="openid != null">
-        #{openid,jdbcType=VARCHAR},
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
       </if>
       <if test="likeCount != null">
-        #{likeCount,jdbcType=BIGINT},
+        #{likeCount,jdbcType=INTEGER},
       </if>
       <if test="commentCount != null">
-        #{commentCount,jdbcType=BIGINT},
+        #{commentCount,jdbcType=INTEGER},
       </if>
-      <if test="hotTop != null">
-        #{hotTop,jdbcType=BIGINT},
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createBy != null">
-        #{createBy,jdbcType=BIGINT},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=BIGINT},
       </if>
       <if test="deleteFlag != null">
         #{deleteFlag,jdbcType=TINYINT},
@@ -195,26 +232,41 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.userName != null">
-        user_name = #{record.userName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.openid != null">
-        openid = #{record.openid,jdbcType=VARCHAR},
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=TINYINT},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
       </if>
       <if test="record.likeCount != null">
-        like_count = #{record.likeCount,jdbcType=BIGINT},
+        like_count = #{record.likeCount,jdbcType=INTEGER},
       </if>
       <if test="record.commentCount != null">
-        comment_count = #{record.commentCount,jdbcType=BIGINT},
+        comment_count = #{record.commentCount,jdbcType=INTEGER},
       </if>
-      <if test="record.hotTop != null">
-        hot_top = #{record.hotTop,jdbcType=BIGINT},
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.createBy != null">
-        create_by = #{record.createBy,jdbcType=BIGINT},
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=BIGINT},
       </if>
       <if test="record.deleteFlag != null">
         delete_flag = #{record.deleteFlag,jdbcType=TINYINT},
@@ -227,13 +279,18 @@
   <update id="updateByExample" parameterType="map">
     update user
     set id = #{record.id,jdbcType=BIGINT},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      openid = #{record.openid,jdbcType=VARCHAR},
-      like_count = #{record.likeCount,jdbcType=BIGINT},
-      comment_count = #{record.commentCount,jdbcType=BIGINT},
-      hot_top = #{record.hotTop,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=TINYINT},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      like_count = #{record.likeCount,jdbcType=INTEGER},
+      comment_count = #{record.commentCount,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      create_by = #{record.createBy,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=BIGINT},
       delete_flag = #{record.deleteFlag,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -242,26 +299,41 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.mmtou.poetry.entity.User">
     update user
     <set>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="openid != null">
-        openid = #{openid,jdbcType=VARCHAR},
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
       </if>
       <if test="likeCount != null">
-        like_count = #{likeCount,jdbcType=BIGINT},
+        like_count = #{likeCount,jdbcType=INTEGER},
       </if>
       <if test="commentCount != null">
-        comment_count = #{commentCount,jdbcType=BIGINT},
+        comment_count = #{commentCount,jdbcType=INTEGER},
       </if>
-      <if test="hotTop != null">
-        hot_top = #{hotTop,jdbcType=BIGINT},
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createBy != null">
-        create_by = #{createBy,jdbcType=BIGINT},
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=BIGINT},
       </if>
       <if test="deleteFlag != null">
         delete_flag = #{deleteFlag,jdbcType=TINYINT},
@@ -271,13 +343,18 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mmtou.poetry.entity.User">
     update user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      openid = #{openid,jdbcType=VARCHAR},
-      like_count = #{likeCount,jdbcType=BIGINT},
-      comment_count = #{commentCount,jdbcType=BIGINT},
-      hot_top = #{hotTop,jdbcType=BIGINT},
+    set name = #{name,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      create_by = #{createBy,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
       delete_flag = #{deleteFlag,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>

@@ -20,7 +20,7 @@ public class UserController {
 
   @GetMapping("{id}")
   public Response<PoetryAuthorInfo> list(@PathVariable("id") long id) {
-    return authorService.get(new Request<Long>(id));
+    return authorService.detail(new Request<Long>(id));
   }
 
 }

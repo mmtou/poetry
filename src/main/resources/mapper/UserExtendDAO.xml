@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mmtou.poetry.mapper.CommentAtDAO">
-  <resultMap id="BaseResultMap" type="com.mmtou.poetry.entity.CommentAt">
+<mapper namespace="com.mmtou.poetry.mapper.UserExtendDAO">
+  <resultMap id="BaseResultMap" type="com.mmtou.poetry.entity.UserExtend">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="comment_id" jdbcType="BIGINT" property="commentId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
     <result column="delete_flag" jdbcType="TINYINT" property="deleteFlag" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mmtou.poetry.entity.UserExtend">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,15 +71,20 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, comment_id, user_id, user_name, create_time, create_by, delete_flag
+    id, user_id, create_time, update_time, update_by, delete_flag
   </sql>
-  <select id="selectByExample" parameterType="com.mmtou.poetry.entity.CommentAtExample" resultMap="BaseResultMap">
+  <sql id="Blob_Column_List">
+    description
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mmtou.poetry.entity.UserExtendExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from comment_at
+    ,
+    <include refid="Blob_Column_List" />
+    from user_extend
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,158 +100,203 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.mmtou.poetry.entity.UserExtendExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_extend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
-    from comment_at
+    ,
+    <include refid="Blob_Column_List" />
+    from user_extend
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from comment_at
+    delete from user_extend
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.mmtou.poetry.entity.CommentAtExample">
-    delete from comment_at
+  <delete id="deleteByExample" parameterType="com.mmtou.poetry.entity.UserExtendExample">
+    delete from user_extend
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.mmtou.poetry.entity.CommentAt">
-    insert into comment_at (id, comment_id, user_id, 
-      user_name, create_time, create_by, 
-      delete_flag)
-    values (#{id,jdbcType=BIGINT}, #{commentId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
-      #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, 
-      #{deleteFlag,jdbcType=TINYINT})
+  <insert id="insert" parameterType="com.mmtou.poetry.entity.UserExtend">
+    insert into user_extend (id, user_id, create_time, 
+      update_time, update_by, delete_flag, 
+      description)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=BIGINT}, #{deleteFlag,jdbcType=TINYINT}, 
+      #{description,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mmtou.poetry.entity.CommentAt">
-    insert into comment_at
+  <insert id="insertSelective" parameterType="com.mmtou.poetry.entity.UserExtend">
+    insert into user_extend
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="commentId != null">
-        comment_id,
-      </if>
       <if test="userId != null">
         user_id,
-      </if>
-      <if test="userName != null">
-        user_name,
       </if>
       <if test="createTime != null">
         create_time,
       </if>
-      <if test="createBy != null">
-        create_by,
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
       </if>
       <if test="deleteFlag != null">
         delete_flag,
+      </if>
+      <if test="description != null">
+        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="commentId != null">
-        #{commentId,jdbcType=BIGINT},
-      </if>
       <if test="userId != null">
         #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createBy != null">
-        #{createBy,jdbcType=BIGINT},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=BIGINT},
       </if>
       <if test="deleteFlag != null">
         #{deleteFlag,jdbcType=TINYINT},
       </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.mmtou.poetry.entity.CommentAtExample" resultType="java.lang.Long">
-    select count(*) from comment_at
+  <select id="countByExample" parameterType="com.mmtou.poetry.entity.UserExtendExample" resultType="java.lang.Long">
+    select count(*) from user_extend
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update comment_at
+    update user_extend
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.commentId != null">
-        comment_id = #{record.commentId,jdbcType=BIGINT},
-      </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=BIGINT},
-      </if>
-      <if test="record.userName != null">
-        user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.createBy != null">
-        create_by = #{record.createBy,jdbcType=BIGINT},
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=BIGINT},
       </if>
       <if test="record.deleteFlag != null">
         delete_flag = #{record.deleteFlag,jdbcType=TINYINT},
       </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update user_extend
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=BIGINT},
+      delete_flag = #{record.deleteFlag,jdbcType=TINYINT},
+      description = #{record.description,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update comment_at
+    update user_extend
     set id = #{record.id,jdbcType=BIGINT},
-      comment_id = #{record.commentId,jdbcType=BIGINT},
       user_id = #{record.userId,jdbcType=BIGINT},
-      user_name = #{record.userName,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      create_by = #{record.createBy,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=BIGINT},
       delete_flag = #{record.deleteFlag,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mmtou.poetry.entity.CommentAt">
-    update comment_at
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmtou.poetry.entity.UserExtend">
+    update user_extend
     <set>
-      <if test="commentId != null">
-        comment_id = #{commentId,jdbcType=BIGINT},
-      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createBy != null">
-        create_by = #{createBy,jdbcType=BIGINT},
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=BIGINT},
       </if>
       <if test="deleteFlag != null">
         delete_flag = #{deleteFlag,jdbcType=TINYINT},
       </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mmtou.poetry.entity.CommentAt">
-    update comment_at
-    set comment_id = #{commentId,jdbcType=BIGINT},
-      user_id = #{userId,jdbcType=BIGINT},
-      user_name = #{userName,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mmtou.poetry.entity.UserExtend">
+    update user_extend
+    set user_id = #{userId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      create_by = #{createBy,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      delete_flag = #{deleteFlag,jdbcType=TINYINT},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmtou.poetry.entity.UserExtend">
+    update user_extend
+    set user_id = #{userId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
       delete_flag = #{deleteFlag,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>

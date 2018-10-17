@@ -4,6 +4,8 @@ import com.mmtou.poetry.common.Request;
 
 public class PoetryListRequest extends Request {
 
+  private Long authorId;
+
   private String authorName;
 
   private String keyword;
@@ -45,5 +47,13 @@ public class PoetryListRequest extends Request {
 
   public void setOrderBy(Byte orderBy) {
     this.orderBy = orderBy;
+  }
+
+  public Long getAuthorId() {
+    return authorId;
+  }
+
+  public void setAuthorId(Long authorId) {
+    this.authorId = authorId;
   }
 }

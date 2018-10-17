@@ -6,11 +6,9 @@ public class PoetryAuthorInfo {
 
   private String name;
 
-  private String introL;
+  private String avatar;
 
-  private String introS;
-
-  private Byte dynasty;
+  private String description;
 
   public Long getId() {
     return id;
@@ -28,27 +26,19 @@ public class PoetryAuthorInfo {
     this.name = name;
   }
 
-  public String getIntroL() {
-    return introL;
+  public String getDescription() {
+    return description;
   }
 
-  public void setIntroL(String introL) {
-    this.introL = introL;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
-  public String getIntroS() {
-    return introS;
+  public String getAvatar() {
+    return avatar;
   }
 
-  public void setIntroS(String introS) {
-    this.introS = introS;
-  }
-
-  public Byte getDynasty() {
-    return dynasty;
-  }
-
-  public void setDynasty(Byte dynasty) {
-    this.dynasty = dynasty;
+  public void setAvatar(String avatar) {
+    this.avatar = avatar;
   }
 }

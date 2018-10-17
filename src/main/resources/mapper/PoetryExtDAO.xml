@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mmtou.poetry.mapper.PoetryExtDAO">
-  <update id="updateByExampleSelectiveExt" parameterType="com.mmtou.poetry.entity.Poetry">
-    update poetry set hot_top=hot_top+#{hotTop}, comment_count=comment_count+#{commentCount}, like_count=like_count+#{likeCount} where id=#{id}
-  </update>
-</mapper>

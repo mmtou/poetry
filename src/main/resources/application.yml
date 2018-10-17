@@ -7,8 +7,8 @@ spring:
 
   datasource:
     url: jdbc:mysql://mmtou.io/poetry
-    username: 
-    password: 
+    username: local
+    password: local123.
     driver-class-name: com.mysql.jdbc.Driver
     hikari:
 #      minimum-idle: 5
